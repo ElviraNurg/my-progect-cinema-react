@@ -1,0 +1,172 @@
+.footer__wrapper {
+    width: 100%;
+    min-height: 253px;
+    display: flex;
+    flex-direction: column;
+}
+
+.footer__wrapper div {
+    align-self: center;
+    width: 93.75%;
+    min-height: 15px;
+
+}
+
+.footer__progect__name__wrapper {
+    padding-top: 79px;
+    margin-bottom: 52px;
+    position: relative;
+}
+
+.footer__progect__name__wrapper::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    top: 115px;
+    left: 10px;
+    background-color: #A0A0A0;
+}
+
+.footer__progect__name,
+.footer__progect,
+.footer__progect__github__link {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 15px;
+}
+
+.footer__progect__name {
+    text-align: center;
+    letter-spacing: 0px;
+    color: #A0A0A0;
+    margin: 0;
+}
+
+.footer__progect__wrapper {
+    margin-bottom: 12px;
+}
+
+.footer__progect {
+    width: min-content;
+    margin: 0 auto;
+}
+
+.footer__progect__github__link__wrapper {
+    margin-bottom: 30px;
+}
+
+.footer__progect__github__link {
+    display: block;
+    width: min-content;
+    margin: 0 auto;
+    text-decoration: none;
+    color: black;
+}
+
+.footer__year {
+    align-self: center;
+    min-width: 41px;
+    position: relative;
+}
+
+.footer__year::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 15px;
+    top: 0;
+    left: 0;
+    background-image: url('../../assets/img/2020.png');
+    background-repeat: no-repeat;
+    opacity: 0.5;
+}
+
+@media (min-width: 768px) {
+    .footer__wrapper {
+        min-height: 172px;
+        display: grid;
+        grid-template-columns: 68.48% auto;
+        grid-template-rows: auto auto;
+
+    }
+
+    .footer__wrapper div:first-child {
+        width: 92.18%;
+        margin: 0 auto;
+        margin-bottom: 41px;
+      
+    }
+
+    .footer__progect__name__wrapper {
+        margin-bottom: 41px;
+        margin-left: 0;
+        grid-column-start: 1;
+        grid-column-end: -1;
+    }
+    .footer__progect__name__wrapper::after{
+        left: 0;
+    }
+    .footer__progect__name,
+    .footer__progect,
+    .footer__progect__github__link {
+        font-size: 13px;
+    }
+
+    .footer__progect {
+        margin-left: 0;
+    }
+
+    .footer__progect__github__link {
+        margin-right: 20px;
+    }
+
+    .footer__progect__wrapper,
+    .footer__progect__github__link__wrapper {
+        grid-column-start: 2;
+        grid-column-end: -1;
+        grid-row-start: 2;
+        grid-row-end: -1;
+        margin-bottom: 20px;
+    }
+
+    .footer__year {
+        grid-column-start: 1;
+        grid-column-end: 2;
+        order: 2;
+        display: flex;
+    }
+
+    .footer__wrapper .footer__progect__wrapper {
+        min-width: 120px;
+        margin-left: 0;
+        margin-right: 0;
+        align-self: start;
+    }
+
+    .footer__wrapper .footer__progect__github__link__wrapper {
+        min-width: 42px;
+        align-self: end;
+    }
+
+    .footer__year::after {
+        top: -10px;
+        opacity: 1;
+        left: 30px;
+    }
+}
+
+@media (min-width: 1280px) {
+    .footer__wrapper div:first-child {
+        width: 89.06%;
+        
+    }
+
+    .footer__year::after {
+        left: 70px;
+    }
+    .footer__progect__github__link{
+        margin-right: 70px;
+    }
+
+}

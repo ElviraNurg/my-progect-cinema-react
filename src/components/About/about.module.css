@@ -1,0 +1,172 @@
+.about__section {
+    background-color: var(--white);
+    width: 100%;
+    min-height: 641px;
+    display: flex;
+    flex-direction: column;
+}
+
+.about__section div {
+    align-self: center;
+    width: 88.75%;
+}
+
+.about__text__wrapper {
+    margin-bottom: 16px;
+    min-height: 44px;
+}
+
+.about__text,
+.about__description {
+    margin: 0;
+    font-weight: 400;
+    text-align: left;
+}
+
+.about__text {
+    font-size: 18px;
+    line-height: 22px;
+    letter-spacing: -0.04em;
+}
+
+.about__description__wrapper {
+    min-height: 48px;
+    margin-bottom: 56px;
+}
+
+.about__description {
+    font-size: 11px;
+    line-height: 16px;
+    letter-spacing: 0em;
+}
+
+.about__table {
+    width: 88.75%;
+    margin-bottom: 69px;
+    border-spacing: 0;
+    margin: 0 auto;
+}
+
+
+.table__firstrow {
+    height: 35px;
+
+}
+
+/*Высота примерная, по высоте блока*/
+.table__row {
+    color: #A0A0A0;
+    height: 22px;
+}
+
+.table__firstrow th:first-child {
+    width: 35.21%;
+    background-color: var(--logo-color-green);
+}
+
+.table__firstrow th:last-child {
+    background-color: #F2F2F2;
+}
+
+
+.table__row__cell {
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 13px;
+    letter-spacing: 0px;
+    text-align: center;
+}
+
+@media (min-width: 768px) {
+    .about__section {
+        min-width: 768px;
+        min-height: 585px;
+    }
+
+    .about__grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .about__text {
+        font-size: 20px;
+        line-height: 24px;
+    }
+
+    .about__text__wrapper {
+        margin-bottom: 26px;
+    }
+
+
+    .about__description {
+        font-size: 12px;
+        line-height: 18px;
+    }
+
+    .about__description__wrapper {
+        margin-bottom: 93px;
+    }
+
+    .table__firstrow {
+        height: 36px;
+    }
+
+    .about__table {
+        width: 86.98%;
+        margin-bottom: 121px;
+    }
+
+    .table__firstrow th:first-child {
+        width: 20.95%;
+    }
+
+    .table__row__cell {
+        font-size: 14px;
+        line-height: 17px;
+    }
+}
+
+@media (min-width: 1280px) {
+    .about__section {
+        min-height: 608px;
+    }
+
+    .about__text__wrapper {
+        min-height: 24px;
+    }
+
+    .about__text {
+        font-size: 22px;
+        line-height: 27px;
+    }
+
+    .about__description__wrapper {
+        min-height: 40px;
+        margin-bottom: 110px;
+    }
+
+    .about__description {
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 20px;
+        text-align: left;
+    }
+
+    .about__table {
+        width: 89.06%;
+        margin-bottom: 141px;
+    }
+
+    .table__firstrow,
+    .table__row {
+        font-size: 14px;
+      
+    }
+
+    .table__firstrow th:first-child {
+        width: 20%;
+    }
+    .table__row .table__row__cell{
+        font-weight: 500;
+    }
+}
