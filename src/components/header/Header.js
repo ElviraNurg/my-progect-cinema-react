@@ -1,41 +1,21 @@
 import style from './header.module.css'
-import {BrowserRouter as Link} from 'react-router-dom';
 import Logo from '../Logo/Logo';
-import { useState } from 'react'
-const Header = () => {
-    let authorizedUser = true;
-    const [clickedToggle, setClickedToggle] = useState(false);
-    const onClickToggle = () => setClickedToggle(prev => !prev)
+import EnterRegistration from '../EnterReg/EnterRegistration';
+import {  useSelector } from 'react-redux/es/hooks/useSelector';
+import Nav from '../Nav/Nav';
+const Header = (props ) => {
+    const datas= useSelector(state=>state.datas.datas)
+    const { parent} = props;
+    const bc = parent=='main'? style.header__main__color:style.user__header;
+    //console.log(parent, bc);
     return (
         <>
-            <div className={clickedToggle ? style.header__authorized : style.header}>
-               <Link to={"/"}> <Logo /> </Link>
+            <div className={`${bc}` }>
+                 <Logo parent={'header__link__logo'} /> 
                 {
-                    authorizedUser ?
-                        <nav className={clickedToggle ? style.header__nav__toggle : style.header__nav}>
-                            <button className={clickedToggle ? style.header__nav__toggle__button__close : style.header__nav__toggle__button__open} onClick={onClickToggle} >
-                                <span className={style.visually__hidden}>Закрыть меню</span>
-                            </button>
-                               <ul className={clickedToggle ? style.header__nav__list : style.header__nav__list__descktop}>
-                                <li className={style.header__nav__list__item}>
-                                    <Link to={"/Main"}>Главная</Link>
-                                </li>
-                                <li className={style.header__nav__list__item}>
-                                    <Link to={"/Movies"}> Фильмы</Link>
-                                </li>
-                                <li className={style.header__nav__list__item}>
-                                    <Link to={"/SavedMovies"}> Сохраненные фильмы</Link>
-                                </li>
-                                <div className={style.header__nav__user__page}>
-                                    <Link to={"/Account"}>Аккаунт</Link>
-                                </div>
-                            </ul>   
-                            
-                        </nav>
-                        : <div className={style.header__user}>
-                            <Link to={"/"} className={style.header__user__registration} > Регистрация</Link>
-                            <Link to={"/Enter"} className={style.header__user__enter}> Войти</Link> 
-                        </div>
+                    datas.authorizedUser ?
+                        <Nav parent={parent} />
+                        : <EnterRegistration/>
                 }
             </div >
         </>

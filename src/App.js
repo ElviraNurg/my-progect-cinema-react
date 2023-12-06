@@ -1,26 +1,29 @@
 import { Routes, Route, Link } from 'react-router-dom';
-import Enterform from './components/Enterform/EnterForm';
+import Enterform from './pages/Enterform/EnterForm';
+import { useState } from 'react';
+import Home from './pages/Home/Home'
+import UserAccount from './pages/UserAccount/UserAccount';
+import style from './App.module.css'
+import Err from './pages/Err/Err'
+import About from './components/About/About';
+import Movies from './pages/Movies/Movies';
+import SavedMovies from './pages/SavedMovies/SavedMovies';
 
-import Home from './components/Home/Home'
-import Header from './components/header/Header';
+
 function App() {
+  
   return (
-
     <div className="App">
-      
-    <Home/>
-         {/* <nav className='nav'>
-          <li className='nav-item'>
-            <Link to="/" >Home</Link>
-          </li>
-        </nav>   */}
-        {/* <Routes>
-          <Route path="/Enter" element={<Enterform />} />
-          <Route path='/' element={<Home />} />
-        </Routes> */}
-     
- 
-      
+      <Routes> 
+          <Route path='/' element={<Home className={style.header}/>} />
+          <Route path='/home' element={<Home  className={style.header}/>} />
+          <Route path='/account' element={<UserAccount/>}/>
+          <Route path='/enter' element={<Enterform/>}/>
+          <Route path='/about' element={<About/>}/>
+          <Route path='movies' element={<Movies parent={'movies'}/>}/>
+          <Route path='/saved-movies' element={<Movies parent={'saved'}/>}/>
+          <Route path='*' element={<Err/>}/>
+        </Routes> 
     </div>
 
   )

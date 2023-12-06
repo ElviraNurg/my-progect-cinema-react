@@ -1,0 +1,53 @@
+.header__user {
+    position: absolute;
+    right: 14px;
+    width: max-content;
+    flex-direction: row;
+    align-items: center;
+    min-height: 74px;
+}
+
+.header__user a {
+    font-size: 10px;
+    padding: 5px 12px;
+    color: var(--white);
+    font-weight: 500;
+    line-height: 16px;
+    border-radius: 3%;
+
+}
+
+.header__user a:hover {
+    background-color: var(--logo-color-green);
+    color: var(--text-color-black);
+}
+
+@media (min-width:768px) {
+    .header__user {
+        height: 32px;
+        right: 30px;
+    }
+
+    .header__user a {
+        padding: 8px 20px;
+        font-family: Inter;
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 16px;
+    }
+}
+
+@media (min-width: 1280px){
+    .header__user {
+        height: 32px;
+        right: 70px;
+    }
+
+    .header__user__registration {
+        width: 117px;
+    }
+
+    .header__user__enter {
+        width: 76px;
+    }
+}

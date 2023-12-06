@@ -2,7 +2,7 @@ import style from './about.module.css'
 import SectionTitle from '../SectionTitle/SectionTitle';
 const About = () => {
     return (<>
-        <section className={style.about__section}>
+        <section id='about' className={style.about__section}>
             <SectionTitle title={'О проекте'} />
             <div className={style.about__grid}>
                 <div>

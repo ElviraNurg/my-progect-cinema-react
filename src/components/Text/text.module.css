@@ -1,0 +1,87 @@
+
+/*Enterform*/
+.enter__form__text {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 15px;
+    letter-spacing: 0em;
+    text-align: center;
+    color: #A0A0A0;
+}
+
+.enter__form__title,
+.user__form__title {
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 29px;
+    color: var(--text-color-black);
+    margin-top: 70px;
+    margin-bottom: 80px;
+    text-align: center;
+}
+
+
+@media (min-width: 768px){
+    .user__form__title { 
+        margin-top: 236px;
+        margin-bottom: 96px;
+    }
+    .enter__form__title{
+        margin-top: 40px;
+        margin-bottom: 40px;
+        text-align: left;
+    }
+
+    .logo__enter .enter__form__title{
+        align-self: start;
+    }
+}
+
+@media (min-width: 1280px){
+    .user__form__title { 
+        margin-top: 74px;
+        margin-bottom: 123px;
+    }
+    .enter__form__title{
+        margin-top: 40px;
+        margin-bottom: 40px;
+    }
+}
+/*Title*/
+.description {
+    font-size: var(--description-font-size);
+    font-weight: 400;
+    line-height: 16px;
+    margin: 0 7px;
+    opacity: 0.5;
+    letter-spacing: 0px;
+    text-align: center;
+}
+/*Mouvies*/
+.movies__checkbox__text {
+    width: max-content;
+    align-self: center;
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 18px;
+    letter-spacing: 0em;
+    text-align: left;
+
+}
+
+/*Err*/
+
+.error__page__text {
+    margin-top: 329px;
+    font-size: 80px;
+    font-weight: 400;
+    line-height: 97px;
+    letter-spacing: 0em;
+    text-align: center;
+  }
+
+@media(min-width:768px){
+    .movies__checkbox__text{
+        font-size: 13px;
+    }
+}

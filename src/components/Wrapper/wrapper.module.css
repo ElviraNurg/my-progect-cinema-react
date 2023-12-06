@@ -1,0 +1,38 @@
+div{
+    display: flex;
+    flex-direction: column;
+   
+}
+
+/*EnterForm*/
+@media (min-width:768px){
+    .logo__enter{
+        width: 396px;
+        margin: 0 auto;
+    }
+    
+}
+
+/**/
+.movies__button__more{
+    height: 166px;
+}
+
+.cinema{
+    width: 300px;
+    align-self: center;
+}
+
+@media (min-width:768px){
+    .cinema{
+        width: 339px;
+    }
+    
+}
+
+@media (min-width:1280px){
+    .cinema{
+        width: 270px;
+    }
+    
+}

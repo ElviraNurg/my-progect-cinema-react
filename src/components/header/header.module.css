@@ -9,20 +9,8 @@
     --grey-background: #F9F9F9;
 }
 
-.visually__hidden {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    margin: -1px;
-    border: 0;
-    padding: 0;
-    white-space: nowrap;
-    clip-path: inset(100%);
-    clip: rect(0 0 0 0);
-    overflow: hidden;
-}
 
-.header {
+.header__main__color {
     background-color: var(--main-color);
     display: flex;
     width: 100%;
@@ -30,287 +18,33 @@
     align-items: end;
 }
 
+.user__header {
+    background-color: var(--white);
+    width: 100%;
+}
+
+.button__color_main {
+    background-color: var(--main-color);
+}
+
+
 .header__authorized {
     height: 100%;
     background-color: var(--white);
 }
 
-.header__link__logo {
-    display: flex;
-    align-items: center;
-    min-height: 74px;
-}
 
-.header__link__img {
-    margin-left: 14px;
-}
-
-.header__user {
-    position: absolute;
-    align-self: center;
-    height: 26px;
-    right: 14px;
-
-}
-
-.header__user a {
-    font-size: 10px;
-    padding: 5px 12px;
-    color: var(--white);
-    font-weight: 500;
-    line-height: 16px;
-    border-radius: 3%;
-}
-
-.header__user a:hover {
-    background-color: var(--logo-color-green);
-    color: var(--text-color-black);
-}
-
-.header__nav {
-    display: flex;
-    flex-direction: row;
-}
-
-.header__nav__toggle {
-    display: flex;
-    flex-direction: column;
-    min-height: 780px;
-    width: 100%;
-    position: absolute;
-    top: 0;
-    right: 0;
-    background-color: var(--white);
-}
-
-.header__nav__toggle__button__close {
-    position: relative;
-    top: 14px;
-    margin-left: 86%;
-    width: 24px;
-    height: 24px;
-    background-color: var(--white);
-    border: none;
-}
-
-.header__nav__toggle__button__close::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 22px;
-    height: 22px;
-    background-image: url('../../assets/img/close.svg');
-    background-position: -5px -5px;
-}
-
-/*Вопрос по left:266px кнопка не тянется */
-.header__nav__toggle__button__open {
-    width: 40px;
-    height: 43px;
-    position: absolute;
-    top: 15px;
-    margin-right: 12px;
-    left: 266px;
-    border: none;
-    cursor: pointer;
-    background-color: var(--main-color);
-}
-
-.header__nav__toggle__button__open::before {
-    content: '';
-    width: 22px;
-    height: 3px;
-    position: absolute;
-    top: 12px;
-    right: 9px;
-    background-color: var(--white);
-}
-
-.header__nav__toggle__button__open::after {
-    content: '';
-    width: 22px;
-    height: 3px;
-    position: absolute;
-    top: 21px;
-    right: 9px;
-    background-color: var(--white);
-}
-
-.header__nav__list {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    padding: 0;
-    margin: 0 auto;
-    margin-top: 144px;
-}
-
-.header__nav__list__descktop {
-    display: none;
-}
-
-.header__nav__list__item {
-    font-size: 18px;
-    font-weight: 500;
-    line-height: 22px;
-    text-align: center;
-    width: 300px;
-}
-
-.header__nav__list__item a {
-    position: relative;
-    display: block;
-}
-
-.header__nav__list__item a:hover::after {
-    content: '';
-    position: absolute;
-    width: 70%;
-    height: 2px;
-    background-color: var(--text-color-black);
-    top: 25px;
-    left: 15%;
-}
-
-.header__nav__user__page {
-    position: absolute;
-    bottom: 46px;
-    min-width: 100px;
-    min-height: 32px;
-    align-self: center;
-    font-size: 13px;
-    font-weight: 500;
-    line-height: 12px;
-    display: flex;
-    justify-content: left;
-    box-shadow: 0px 3px 14px 0px #00000014;
-    border-radius: 40px;
-
-}
-
-.header__nav__user__page a {
-    align-self: center;
-    margin-left: 11px;
-}
-
-.header__nav__user__page a::before {
-    content: '';
-    position: absolute;
-    width: 26px;
-    height: 26px;
-    right: 3px;
-    top: 3px;
-    background-color: var(--grey-background);
-    border-radius: 40px;
-}
-
-.header__nav__user__page a::after {
-    content: '';
-    position: absolute;
-    width: 11px;
-    height: 11px;
-    top: 10px;
-    right: 11px;
-    background-image: url('../../assets/img/icon__user.svg');
-    background-color: var(--white);
-}
 
 @media (min-width: 768px) {
     .header {
         min-width: 768px;
     }
-
-    .header__link__img {
-        margin-left: 30px;
-    }
-
-    .header__nav__toggle {
-        width: 520px;
-        min-height: 1024px;
-    }
-
-    .header__nav__toggle__button__open {
-        left: 694px;
-    }
-
-    .header__user {
-        height: 32px;
-        right: 30px;
-
-    }
-
-    .header__user a {
-        padding: 8px 20px;
-        font-family: Inter;
-        font-size: 12px;
-        font-weight: 500;
-        line-height: 16px;
-    }
-
-    .header__nav__user__page {
-      display: flex;
-      align-items: center;
-      padding-left: 11px;
-    }
 }
 
 @media (min-width: 1280px) {
 
-    .header__link__img {
-        margin-left: 70px;
-    }
-
-    .header__nav__toggle__button__open {
-        display: none;
-    }
-
-    .header__user {
-        height: 32px;
-        right: 70px;
-    }
-
-    .header__user__registration {
-        width: 117px;
-    }
-
-    .header__user__enter {
-        width: 76px;
-    }
-
-
-    .header__nav__list__descktop {
-        display: flex;
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        margin-left: 427px;
-        margin-right: 200px;
-        min-height: 74px;
-        gap: 16px;
-        flex-wrap: wrap;
-        align-items: center;
-    }
-
-    .header__nav__list__descktop .header__nav__list__item:first-child {
-        display: none;
-    }
-
-    .header__nav__list__descktop .header__nav__list__item {
-        color: var(--white);
-        font-size: 13px;
-        font-weight: 400;
-        line-height: 18px;
-        letter-spacing: 0em;
-        text-align: left;
-        width: max-content;
-        height: 18px;
-    }
-
-    .header__nav__user__page {
-        background-color: var(--logo-color-green);
-        bottom: 750px;
-        left: 1110px;
+    .user__header,
+    .header__main__color {
+        flex-direction: row;
     }
 }

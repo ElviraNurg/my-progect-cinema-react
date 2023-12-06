@@ -1,3 +1,6 @@
+import { Link } from 'react-router-dom';
+import { HashLink } from 'react-router-hash-link';
+import Text from '../Text/Text'
 import style from './title.module.css'
 const Title = () => {
     return (<>
@@ -8,13 +11,12 @@ const Title = () => {
                 </h1>
             </div>
             <div className={style.description__wrapper}>
-                <p className={style.description}>
-                    Листайте ниже, чтобы узнать больше про этот проект и его создателя.
-                </p>
+                <Text parent={'description'} text={' Листайте ниже, чтобы узнать больше про этот проект и его создателя.'}/>
+                   
             </div>
-            <button className={style.button} >
-                Узнать больше
-            </button>
+            <HashLink smooth to='#about' className={style.title__button}  >Узнать больше</HashLink>
+               
+            
         </section>
 
     </>)

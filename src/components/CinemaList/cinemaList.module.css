@@ -1,0 +1,18 @@
+@media (min-width: 768px){
+    .movies{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 30px;
+        justify-content: space-between;
+        width: 92.19%;
+        align-self: center;
+    }
+}
+
+@media (min-width: 1280px){
+    .movies{
+        gap: 20px;
+        width: 89.06%;
+    }
+}
