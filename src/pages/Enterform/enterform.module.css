@@ -24,6 +24,12 @@
 .form__enter{
     align-self: center;
 }
+.validate__error__text{
+    align-self: center;
+    font-size: 9px;
+    color: var(--error-color);
+    width: 260px;
+}
 
 .button__wrapper {
     height: 371px;
@@ -48,4 +54,11 @@ line-height: 15px;
 letter-spacing: 0em;
 text-align: center;
 color: var(--button-blue);
+}
+
+@media (min-width:768px){
+    .validate__error__text{
+        width: 396px;
+    }
+   
 }

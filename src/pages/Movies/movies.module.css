@@ -1,4 +1,4 @@
-.movies__search {
+.movies__search{
     width: 93.75%;
     min-height: 238px;
     align-self: center;
@@ -61,7 +61,7 @@
     height: 10px;
     background-color: #fff;
     top: 2px;
-    right: 1px;
+    right: 23px;
     position: absolute;
     border-radius: 50%;
 }
@@ -82,9 +82,12 @@
 }
 
 .checkbox:checked ~ .checkbox__toggle {
-    right: 23px;
+    right: 1px;
 }
+.movies__message {
+    margin: 0 auto;
 
+}
 @media (min-width: 768px){
     .movies__search{
         width: 92.18%;

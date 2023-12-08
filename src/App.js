@@ -18,7 +18,8 @@ function App() {
           <Route path='/' element={<Home className={style.header}/>} />
           <Route path='/home' element={<Home  className={style.header}/>} />
           <Route path='/account' element={<UserAccount/>}/>
-          <Route path='/enter' element={<Enterform/>}/>
+          <Route path='/singup' element={<Enterform/>}/>
+          <Route path='/singin' element={<Enterform/>}/>
           <Route path='/about' element={<About/>}/>
           <Route path='movies' element={<Movies parent={'movies'}/>}/>
           <Route path='/saved-movies' element={<Movies parent={'saved'}/>}/>

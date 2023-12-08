@@ -1,3 +1,6 @@
+button:disabled{
+        opacity: 0.5;
+}
 .enter__form__button {
         background-color: var(--button-blue);
         width: 260px;

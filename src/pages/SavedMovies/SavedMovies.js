@@ -8,7 +8,7 @@ import Text from "../../components/Text/Text"
 import Wrapper from "../../components/Wrapper/Wrapper"
 import { useEffect } from "react"
 import { useSelector, useDispatch } from 'react-redux';
-import { getMovies, handleChange, handleFilter, handleFilterShorts, handlePushMore, getDisplayedSaveList } from "../../store/moviesApi";
+import { getMovies, handleChange, handleFilter, handleFilterShorts, handlePushMore, getDisplayedSaveList } from "../../store/dataSlice";
 
 const SavedMovies = () => {
     const dispatch = useDispatch();

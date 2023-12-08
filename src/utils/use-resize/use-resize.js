@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { SCREEN_S, SCREEN_M, SCREEN_L} from '../Variables/breakpoints';
+import { SCREEN_S, SCREEN_M, SCREEN_L} from '../Variables/constants';
 
 export const useResize = () => {
   const [width, setWidth] = useState(window.innerWidth);

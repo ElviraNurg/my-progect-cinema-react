@@ -17,12 +17,12 @@ const UserAccount = () => {
                 <Text parent={'user__form__title'} text={'Привет, Виталий!'} textType={'h2'} />
                 {clickedEdit ?
                     <Form parent={'enter__form'}>
-                        <Input parent={'enter__form__user'}  text={'Имя'} />
-                        <Input parent={'enter__form__user'}  text={'E-mail'} />
+                        <Input inputname={'email'} parent={'enter__form__user'}  text={'Имя'} />
+                        <Input inputname={'password'} parent={'enter__form__user'}  text={'E-mail'} />
                     </Form> : 
                     <Form parent={'enter__form'}>
-                        <Input parent={'enter__form__user'} value={'Виталий'} text={'Имя'} readonly={true} />
-                        <Input parent={'enter__form__user'} value={'pochta@yandex.ru'} text={'E-mail'} readonly={true} />
+                        <Input inputname={'email'} parent={'enter__form__user'} value={'Виталий'} text={'Имя'} readonly={true} />
+                        <Input inputname={'password'} parent={'enter__form__user'} value={'pochta@yandex.ru'} text={'E-mail'} readonly={true} />
                     </Form>}
             </div>
             <div className={style.button__wrapper}>
