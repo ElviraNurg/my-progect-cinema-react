@@ -1,6 +1,7 @@
-button:disabled{
+button:disabled {
         opacity: 0.5;
 }
+
 .enter__form__button {
         background-color: var(--button-blue);
         width: 260px;
@@ -9,6 +10,18 @@ button:disabled{
         align-self: center;
         margin-top: 257px;
         color: var(--white);
+}
+
+/*UserAccount*/
+.button__edit {
+        background-color: #fff;
+        border: none;
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 15px;
+        letter-spacing: 0px;
+        text-align: center;
+        text-transform: none;
 }
 
 
@@ -47,7 +60,8 @@ button:disabled{
         line-height: 15px;
         letter-spacing: 0px;
 }
-.text{
+
+.text {
         align-self: center;
         margin-top: 50px;
 }

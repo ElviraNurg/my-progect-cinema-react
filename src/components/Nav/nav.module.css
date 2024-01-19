@@ -56,11 +56,13 @@
 
 .button__open {
     width: 22px;
-    height: 2.5px;
+    height: 25px;
     position: absolute;
     top: 27px;
     right: 35px;
     border: none;
+    border-top: 2.5px solid black;
+    padding-top: 2px;
     cursor: pointer;
     background-color: var(--white);
 }
@@ -74,20 +76,29 @@
     width: 22px;
     height: 2.5px;
     position: absolute;
-    top: 9px;
+    top: 7px;
     right: 0;
     background-color: var(--white);
 }
 
-.button__open::after {
-    top: 17.5px;
+.toggle__white__color{
+background-color: var(--main-color);
+border-top: 2.5px solid white;
 }
 
-.toggle__black__color,
-.toggle__black__color::after,
+.button__open::after {
+    top: 16px;
+}
+
+.toggle_black__color{
+    background-color: var(--white);
+    border-top: 2.5px solid black;
+    }
+
+ .toggle__black__color::after,
 .toggle__black__color::before {
     background-color: var(--text-color-black);
-}
+} 
 
 .header__nav__list {
     list-style: none;

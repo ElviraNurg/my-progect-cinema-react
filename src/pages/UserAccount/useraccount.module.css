@@ -54,7 +54,6 @@ input {
     gap: 16px;
 }
 
-.button__edit,
 .button__exit {
     background-color: #fff;
     border: none;
@@ -64,6 +63,8 @@ input {
     letter-spacing: 0px;
     text-align: center;
     text-transform: none;
+    border: none;
+
 }
 
 .button__exit {

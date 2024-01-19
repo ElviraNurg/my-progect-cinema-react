@@ -5,8 +5,10 @@ import { Link, useNavigate } from 'react-router-dom';
 
 const Err = () => {
     let navigate = useNavigate();
+    
     function handleClick() {
         navigate(-1);
+        console.log();
     }
     return (
         <>

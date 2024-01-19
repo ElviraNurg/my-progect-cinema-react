@@ -33,14 +33,17 @@ const About = () => {
 
 
             <table className={style.about__table}>
-                <tr className={style.table__firstrow} >
-                    <th className={style.table__row__cell}>1 неделя</th>
-                    <th className={style.table__row__cell}>4 недели</th>
-                </tr>
-                <tr className={style.table__row}>
-                    <th className={style.table__row__cell}>Back-end</th>
-                    <th className={style.table__row__cell}>Front-end</th>
-                </tr>
+                <tbody>
+                    <tr className={style.table__firstrow} >
+                        <th className={style.table__row__cell}>1 неделя</th>
+                        <th className={style.table__row__cell}>4 недели</th>
+                    </tr>
+                    <tr className={style.table__row}>
+                        <th className={style.table__row__cell}>Back-end</th>
+                        <th className={style.table__row__cell}>Front-end</th>
+                    </tr>
+                </tbody>
+
             </table>
 
 

@@ -1,10 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { URL } from "../utils/Variables/constants";
-export const getMovies = createAsyncThunk('movies', async () => {
-    const data = await fetch(`${URL}`);
-    return data.json();
-}
+export const getMovies = createAsyncThunk(
+    'movies',
+    async function (_, { rejectWithValue }) {
+        try {
+            const response = await fetch(`${URL}`);
+            if (!response.ok) {
+                throw new Error('Error')
+            }
+            return response.json();
+        } catch (error) {
+            return rejectWithValue(error.message)
+        }
+    }
 )
 
 export const moviesSlice = createSlice({
@@ -15,29 +24,19 @@ export const moviesSlice = createSlice({
         isLoading: false,
     },
     reducers: {
-         async getData(state, action) {
-            state.isLoading=true;
-           const data = await fetch('https://api.nomoreparties.co/beatfilm-movies')
-           console.log('data = > ',data);
-                // .then((response) => {
-                //     if (response.ok) {
-                //         console.log('fetch', response.json());
-                //         console.log('fetch state.movies', state.movies);
-                //         //state.isLoading=false;
-                //         // state.movies = response.json();
-                //     }
-                //     throw new Error(`${response.status} ${response.statusText}`)
-                // })
-                //  .catch(error => {
-                //     state.error = error;
-                //     state.isLoading=false;
-                // }) 
-        }, 
+        
     },
     extraReducers: {
+        [getMovies.pending]: (state, action) => {
+            state.isLoading=true
+        },
         [getMovies.fulfilled]: (state, action) => {
             state.movies = action.payload;
+            localStorage.setItem('movies', JSON.stringify(action.payload));
             state.isLoading = false;
+        },
+        [getMovies.rejected]: (state, action) => {
+            state.error = action.payload;
         }
 
     }
