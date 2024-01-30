@@ -1,19 +1,18 @@
 import Wrapper from "../Wrapper/Wrapper"
-
 import style from './cinema.module.css'
 import { Icon } from "../Icon/Icon";
 import { useEffect } from "react";
-import { deleteMovie, saveMovie, likedToggle } from "../../store/dataSlice";
+import { deleteMovie, saveMovie } from "../../store/dataSlice";
 import { useSelector, useDispatch } from "react-redux";
 
 const Cinema = (props) => {
     const { item, parent } = props;
-
-    let savedMovies = useSelector(state => state.datas.datas.savedMovies);
+    const savedMovies = useSelector(state => state.datas.datas.savedMovies);
     let liked = ''
-    const savedMoviesId = savedMovies.map(item => item.movieId)
 
-
+    const savedMoviesId = savedMovies.map(item => item.movieId);
+    const isMovies = parent === 'movies'
+    
     const likeStatus = (item, parent) => {
         if (liked = parent === 'saved') {
             return false
@@ -27,16 +26,17 @@ const Cinema = (props) => {
 
     }
 
-
     const dispatch = useDispatch()
 
     liked = likeStatus(item, parent)
-    const saveOrDelete=parent === 'movies' && liked === null ? () => dispatch(saveMovie({ item, parent })) : () => dispatch(deleteMovie({ savedMoviesId,item, parent }))
+    const saveOrDelete = () => {
+        dispatch(isMovies && liked === null ? saveMovie({ item, parent }) : deleteMovie({ savedMoviesId, item, parent }))
+    }  
     useEffect(() => {
         likeStatus(item, parent)
     }, [])
 
-    const imageUrl = parent === 'movies' ? 'https://api.nomoreparties.co/' + item.image.url : item.image;
+    const imageUrl = item.image; // TODO
     const linkUrl = item.trailerLink
     const hours = Math.floor(item.duration / 60);
     const minutes = item.duration - (hours * 60);

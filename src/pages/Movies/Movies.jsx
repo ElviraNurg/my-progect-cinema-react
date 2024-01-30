@@ -8,20 +8,20 @@ import Text from "../../components/Text/Text"
 import Wrapper from "../../components/Wrapper/Wrapper"
 import { useEffect, useState } from "react"
 import { useSelector, useDispatch } from 'react-redux';
-import { handleChange, handleFilter, handlePushMore, getDisplayedList, getMoreButtunStatus, checkToken, getSavedMovies } from "../../store/dataSlice";
-import { getMovies } from "../../store/moviesApi";
+import { handleChange, handleFilter, handlePushMore, getDisplayedList, getMoreButtunStatus, getSavedMovies, addSavedMovies } from "../../store/dataSlice";
+import { getMovies, addMovies } from "../../store/moviesApi";
 import { useResize } from "../../utils/use-resize/use-resize"
 import Preloader from "../../components/Preloader/preloader"
 
+
 const Movies = (props) => {
     const { parent } = props;
-
     const dispatch = useDispatch();
     const { isScreenM, isScreenL } = useResize()
-    const filtredMovies = useSelector(state => state.datas.datas.filtredMovies)
+    const filtredMovies = useSelector(state => state.datas.datas.filtredMovies);
+    const savedMovies = useSelector(state => state.datas.datas.savedMovies)
     const disabledMoreButton = useSelector(state => state.datas.datas.disabledMoreButton);
     let displayedList = useSelector(state => state.datas.datas.displayedList);
-    const displayedSaveList = useSelector(state => state.datas.datas.displayedSaveList);
     const movies = useSelector(state => state.datas.movies.movies);
     const isLoading = useSelector(state => state.datas.movies.isLoading);
     const error = useSelector(state => state.datas.movies.error);
@@ -29,42 +29,64 @@ const Movies = (props) => {
     const [message, setMessage] = useState('');
     const [clickedShorts, setClickedShorts] = useState(JSON.parse(localStorage.getItem('clickedShorts')) || false)// для определения фильтра
     const [clickedFind, setClickedFind] = useState(false)// для определения фильтра
-
     const [moviesLocal, setMoviesLocal] = useState([])
-  
+    const [savedMoviesLocal, setSavedMoviesLocal] = useState([])
+
+    //Сохранение данных о фильмах в LоcalStorage
     useEffect(() => {
         setMoviesLocal(JSON.parse(localStorage.getItem('movies')));
-    }, [movies])
+    }, [])
 
+    useEffect(() => {
+        setSavedMoviesLocal(JSON.parse(localStorage.getItem('savedMovies')));
+    }, [])
+
+    //Сохранение данных предыдущего поиска в LоcalStorage
     useEffect(() => {
         localStorage.setItem('search', JSON.stringify(searchValue));
     }, [searchValue]);
-    
+
     useEffect(() => {
         localStorage.setItem('clickedShorts', clickedShorts);
     }, [clickedShorts]);
 
-    //загрузка данных 
+    //отслеживает изменения в savedMovies
+    useEffect(() => {
+
+    }, [savedMovies]);
+    //
+    useEffect(() => {
+        if(movies.length === 0 && moviesLocal){
+            dispatch(addMovies(moviesLocal))
+        }
+    }, [moviesLocal]);
+
+    useEffect(() => {
+        if(savedMovies.length === 0 && savedMoviesLocal){
+            dispatch(addSavedMovies(savedMoviesLocal))
+        }
+    }, [savedMoviesLocal]);
+
+    //загрузка данных если нет в LоcalStorage
     const handleFilterMovies = () => {
         setClickedFind(prev => !prev);
-        //console.log('moviesLocal', moviesLocal);
-        !moviesLocal && dispatch(getMovies())&&dispatch(getSavedMovies());
+        !localStorage.getItem('movies') && dispatch(getMovies());
+        !localStorage.getItem('savedMovies') && dispatch(getSavedMovies());
     }
-
     const handleFilterShortMovies = () => {
-        !moviesLocal && dispatch(getMovies());
+        !moviesLocal && dispatch(getMovies()) && dispatch(getSavedMovies());
         setClickedShorts(!clickedShorts);
     }
 
-    //Фильтрует фильмы в зависимости от изменений movies 
+    //Фильтрует фильмы в зависимости от изменений movies, кнопки найти, короткометражки и родителя 
     useEffect(() => {
-        dispatch(handleFilter({ movies, clickedShorts, clickedFind, parent }));
-    }, [movies, clickedFind, clickedShorts]);
+        movies && dispatch(handleFilter({ movies, clickedShorts, clickedFind }));
+    }, [movies, clickedFind, clickedShorts, parent]);
 
+    //если был поиск и отфильтрованный массив пустой-выводит: 'Ничего не найдено'
     useEffect(() => {
         (searchValue.length > 0 || clickedShorts) && filtredMovies.length === 0 ? setMessage('Ничего не найдено') : setMessage('')
     }, [filtredMovies.length]);
-
 
 
     const screenWidth = () => {
@@ -80,17 +102,16 @@ const Movies = (props) => {
         }
         return displayedListCount;
     }
+
     let displayedListCount = screenWidth();
-
+    //Отображаемые фильмы
     useEffect(() => {
-
         dispatch(getDisplayedList({ displayedListCount }))
+    }, [filtredMovies, displayedListCount, movies, parent]);
 
-    }, [filtredMovies, displayedListCount, movies]);
-
+    //Для определения статуса кнопки Еще
     useEffect(() => {
         dispatch(getMoreButtunStatus());
-
     }, [filtredMovies, displayedList, disabledMoreButton])
 
 
@@ -102,7 +123,7 @@ const Movies = (props) => {
                     <div className={style.movies__search}>
                         <div className={style.search__wrapper}>
 
-                            <Input onChange={(e) => dispatch(handleChange({ e, parent }))}
+                            <Input onChange={(e) => dispatch(handleChange({ e }))}
                                 value={searchValue}
                                 parent={'movies__input'}
                                 type={'search'}
@@ -127,21 +148,20 @@ const Movies = (props) => {
                         </div>
                     </div>
                     <div className={style.movies}>
-
-                        <CinemaList displayedList={parent === 'movies' ? displayedList : displayedSaveList} parent={parent} />
+                        <CinemaList displayedList={displayedList}
+                            parent={parent} />
                         <span className={style.movies__message}>{message}</span>
-
                     </div>
-                    {parent === 'movies' ?
-                        <Wrapper parent={'movies__button__more'}>
-                            {message.length === 0 ? <Button disabledMoreButton={disabledMoreButton} onClick={() => dispatch(handlePushMore({ displayedListCount }))} parent={'movies__button__more'} text={'Ещё'} />
-                                : null}
+                    <Wrapper parent={'movies__button__more'}>
+                        {message.length === 0 && movies.length!==0
+                            ? <Button disabledMoreButton={disabledMoreButton}
+                                onClick={() => dispatch(handlePushMore({ displayedListCount }))}
+                                parent={'movies__button__more'}
+                                text={'Ещё'} />
 
-                        </Wrapper>
-                        : null}
-
+                            : null}
+                    </Wrapper>
                     <Footer />
-
                 </div>
             }
         </>

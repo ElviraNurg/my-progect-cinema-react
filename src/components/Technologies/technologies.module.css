@@ -1,42 +1,29 @@
 .technologies__section {
-    width: 100%;
-    min-height: 651px;
-    display: flex;
-    flex-direction: column;
-}
-
-.technologies__section div {
-    align-self: center;
-    width: 91.25%;
-}
-
-.technologies__title__wrapper {
-
-    min-height: 36px;
-    margin-bottom: 24px;
+    padding: 70px 6% 0 6%;
+    min-height: 581px;
 }
 
 .technologies__title {
+    padding-top: 60px;
     margin: 0;
     font-size: 30px;
     font-weight: 400;
     line-height: 36px;
     text-align: center;
-}
-
-.technologies__description__wrapper {
-    width: 91.25%;
-    min-height: 32px;
-    margin-bottom: 50px;
+    margin-bottom: 24px;
+    min-height: 36px;
 }
 
 .technologies__description {
-    margin: 0 auto;
+    margin: 0 10px;
     font-size: 11px;
     font-weight: 400;
     line-height: 16px;
     letter-spacing: -0.04em;
     text-align: center;
+    min-height: 32px;
+    margin-bottom: 50px;
+
 }
 
 .technologies__list {
@@ -66,34 +53,26 @@
 
 @media (min-width: 768px) {
     .technologies__section {
-        min-height: 567px;
+        min-height: 457px;
         background-color: #F5F5F5;
-
+        padding-top: 90px;
     }
 
     .technologies__title {
         font-size: 50px;
         line-height: 58px;
         letter-spacing: -0.04em;
-        text-align: center;
-    }
-
-    .technologies__title__wrapper {
         margin-bottom: 22px;
     }
 
     .technologies__description {
+        margin: 0 auto;
         font-size: 12px;
         line-height: 18px;
         letter-spacing: -0.04em;
         text-align: center;
         width: 460px;
         min-height: 36px;
-    }
-
-    .technologies__description__wrapper {
-        display: flex;
-        justify-content: center;
         margin-bottom: 83px;
     }
 
@@ -107,6 +86,11 @@
 }
 
 @media (min-width: 768px) {
+    .technologies__section {
+        padding-top: 110px;
+        min-height: 515px;
+    }
+
     .technologies__title__wrapper {
         margin-bottom: 26px;
     }
@@ -120,11 +104,11 @@
         font-size: 14px;
     }
 
-.technologies__list{
-    margin-bottom: 100px;
-}
+    .technologies__list {
+        margin-bottom: 100px;
+    }
 
-    .technologies__list__item{
+    .technologies__list__item {
         width: 90px;
         height: 60px;
     }

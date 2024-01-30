@@ -3,24 +3,16 @@ p {
 }
 
 .student__section {
-    width: 100%;
-    min-height: 1198px;
-    display: flex;
-    flex-direction: column;
+    padding: 70px 6% 0 6%;
+    min-height: 1128px;
 }
 
-.student__section div {
-    align-self: center;
-    width: 91.25%;
-}
-
-.student__title__wrapper {
-    min-height: 36px;
-    margin-bottom: 20px;
-    align-self: center;
+.stugent__grid__wrapper {
+    padding-top: 60px;
 }
 
 .student__photo__wrapper {
+    margin: 0 auto;
     margin-bottom: 40px;
 
 }
@@ -30,12 +22,8 @@ p {
     font-size: 30px;
     font-weight: 400;
     line-height: 36px;
-    text-align: left;
     letter-spacing: -0.04em;
-}
-
-.student__post__wrapper {
-    min-height: 16px;
+    min-height: 36px;
     margin-bottom: 20px;
 }
 
@@ -43,82 +31,59 @@ p {
     font-size: 11px;
     font-weight: 500;
     line-height: 16px;
-    text-align: left;
     letter-spacing: 0px;
-}
-
-.student__description__wrapper {
-    min-height: 112px;
-    margin-bottom: 40px;
+    min-height: 16px;
+    margin-bottom: 20px;
 }
 
 .student__description {
     font-size: 11px;
     font-weight: 400;
     line-height: 16px;
-    text-align: left;
     letter-spacing: 0px;
-}
-
-.student__github__link__wrapper {
-    margin-bottom: 70px;
-    min-height: 17px;
+    min-height: 112px;
+    margin-bottom: 40px;
 }
 
 .student__github__link {
     font-size: 14px;
     font-weight: 500;
     line-height: 17px;
-    text-align: left;
-}
-
-.student__portfolio__wrapper {
-    min-height: 20px;
-    margin-bottom: 40px;
+    margin-bottom: 70px;
+    min-height: 17px;
 }
 
 .student__portfolio {
     font-size: 14px;
     font-weight: 400;
     line-height: 20px;
-    text-align: left;
     margin: 0;
     color: #A0A0A0;
+    min-height: 20px;
+    margin-bottom: 40px;
 }
 
 .portfolio__list {
     list-style: none;
     margin: 0;
     padding: 0;
-    align-self: center;
-    width: 89.06%;
-
 }
 
 .portfolio__list__item {
     font-size: 18px;
     font-weight: 400;
     line-height: 28px;
-    letter-spacing: -0.04em;
-    text-align: left;
-    width: 100%;
+    letter-spacing: -0.04em; 
     min-height: 28px;
     margin-bottom: 40px;
     position: relative;
+    border-bottom: 1px solid #E6E6E6;
+    padding-bottom: 19px;
 }
 
-.portfolio__list__item::before {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 1px;
-    background-color: #E6E6E6;
-    top: 39px;
-    left: 0;
-}
-
-.portfolio__list__item:last-child::before {
-    display: none;
+.portfolio__list__item:last-child {
+    border: none;
+    margin-bottom: 70px;
 }
 
 .portfolio__list__item::after {
@@ -134,16 +99,19 @@ p {
 
 @media (min-width: 768px) {
     .student__section {
-        min-height: 994px;
+        min-height: 904px;
+        padding-top: 90px;
     }
 
-    .student__title__wrapper {
-        margin-bottom: 16px;
+    .student__photo {
+        width: 255px;
+        height: 307px;
     }
 
     .student__title {
         font-size: 40px;
         line-height: 40px;
+        margin-bottom: 16px;
     }
 
     .student__post {
@@ -151,13 +119,10 @@ p {
         line-height: 18px;
     }
 
-    .student__description__wrapper {
-        margin-bottom: 87px;
-    }
-
     .student__description {
         font-size: 12px;
         line-height: 18px;
+        margin-bottom: 87px;
     }
 
     .stugent__grid__wrapper {
@@ -170,23 +135,12 @@ p {
         order: 1;
     }
 
-    .student__github__link__wrapper {
-        margin-bottom: 1px;
-    }
-
-    .student__description__wrapper {
-        margin-bottom: 70px;
-    }
-
-    .student__github__link__wrapper {
+    .student__github__link {
         margin-bottom: 91px;
     }
 
     .student__portfolio {
         font-size: 18px;
-    }
-
-    .student__portfolio__wrapper {
         margin-bottom: 50px;
     }
 
@@ -195,16 +149,17 @@ p {
         line-height: 50px;
     }
 
-    .portfolio__list {
-        margin-bottom: 50px;
-    }
-
     .portfolio__list__item::before {
         top: 69px;
     }
 }
 
 @media (min-width: 1280px) {
+    .student__section {
+        min-height: 969px;
+        padding-top: 110px;
+    }
+
     .student__title {
         font-size: 50px;
         line-height: 58px;
@@ -239,51 +194,3 @@ p {
         margin-bottom: 101px;
     }
 }
-
-/* display: grid;
-        
-        grid-template-areas: "ST ST"
-                              "SI SPH"
-                              "GIT GIT" 
-                              "SP SP"
-                              "PL PL";
-    }
- */
-/* .student__section__title{
-        grid-area: ST;
-        grid-column-start: 1;
-        grid-column-end: -1;   
-    }
-
-    .student__section div:first-child{
-        width: 160%;
-    }
-    
-    .student__section .student__title__wrapper,
-    .student__section .student__post__wrapper,
-    .student__section .student__description__wrapper {
-        width: 364px;
-        grid-area: SI;
-    }
-
-    .student__photo__wrapper{
-        grid-area: SPH;
-    }
-    .student__github__link__wrapper{
-        grid-area: GIT;
-    }
-    .student__portfolio__wrapper{
-        grid-area: SP;
-
-    }
-    .portfolio__list{
-        grid-area: PL;
-
-    }
-
-    .student__section .student__photo__wrapper,
-    .student__photo {
-        width: 255px;
-        height: 307px;
-    }
-} */

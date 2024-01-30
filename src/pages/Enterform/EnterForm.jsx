@@ -11,7 +11,7 @@ import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Preloader from '../../components/Preloader/preloader';
 const Enterform = () => {
-    const datas = useSelector(state => state.datas.datas);
+    const clicker = useSelector(state => state.datas.datas.clicker);
     let valueReg = useSelector(state => state.datas.datas.valueReg);
     const inputErr = useSelector(state => state.datas.datas.inputErr);
     const authorizedUser = useSelector(state => state.datas.datas.authorizedUser);
@@ -19,29 +19,30 @@ const Enterform = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    let isValid = datas.clicker === 'enter' ? inputErr.emailErr === '' ? true : false
+    const isEnter = clicker === 'enter';
+
+    let isValid = isEnter ? inputErr.emailErr === '' ? true : false
         : inputErr.nameErr === '' && inputErr.emailErr === '' ? true : false;
-    // console.log('isValid' , isValid);
-    // console.log('inputErr' , inputErr);
-    const headerText = datas.clicker === 'enter' ? 'Рады видеть!' : 'Добро пожаловать!'
-    const buttonText = datas.clicker === 'enter' ? 'Войти' : 'Зарегистрироваться';
-    const buttonFooterText = datas.clicker === 'enter' ? 'Ещё не зарегистрированы?' : 'Уже зарегистрированы?';
-    const linkText = datas.clicker === 'enter' ? 'Регистрация' : 'Войти';
-    const linkNavigateTo = datas.clicker === 'enter' ? '/signup' : '/signin';
-    const buttonOnClick = datas.clicker === 'enter' ? () => dispatch(authorization()) : () => dispatch(registration())
-    const linkOnClick = datas.clicker === 'enter' ? () => dispatch(onClickRegistration()) : () => dispatch(onClickEnter())
+    const headerText = isEnter ? 'Рады видеть!' : 'Добро пожаловать!'
+    const buttonText = isEnter ? 'Войти' : 'Зарегистрироваться';
+    const buttonFooterText = isEnter ? 'Ещё не зарегистрированы?' : 'Уже зарегистрированы?';
+    const linkText = isEnter ? 'Регистрация' : 'Войти';
+    const linkNavigateTo = isEnter ? '/signup' : '/signin';
+    const buttonOnClick = isEnter ? () => dispatch(authorization()) : () => dispatch(registration())
+    const linkOnClick = isEnter ? () => dispatch(onClickRegistration()) : () => dispatch(onClickEnter())
     useEffect(() => {
         dispatch(validateReg());
     }, [valueReg, inputErr, isValid])
 
-    useEffect(() => {
+    useEffect(() => { }, [clicker])
 
-    }, [datas.clicker])
-    const token = localStorage.getItem('token')
-    useEffect(() => {
-        dispatch(checkToken())
-    }, [token])
-
+   /* const token = localStorage.getItem('token')
+     useEffect(() => {
+        !authorizedUser && token && dispatch(checkToken());
+        console.log('EnterPage');
+    }, [token])   
+ */
+   // console.log('authorizedUser ', authorizedUser);
     authorizedUser && navigate("/movies")
 
     return (<>
@@ -54,7 +55,7 @@ const Enterform = () => {
                         <Text parent={'enter__form__title'} text={headerText} textType={'h2'} />
                     </Wrapper>
                     <div className={style.form__wrapper}>
-                        {datas.clicker === 'enter' ?
+                        {clicker === 'enter' ?
                             <Form parent={'enter__form'} >
                                 {inputErr.nameErr.length > 0 && <span className={style.validate__error__text}>{inputErr.emailErr}</span>}
                                 <Input onChange={(e) => dispatch(handleChangeReg({ e }))} inputname={'email'} parent={'enter__form'} text={'E-mail'} />

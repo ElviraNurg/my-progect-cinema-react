@@ -5,7 +5,11 @@ const Logo = (props) => {
     const { parent } = props
     return (<>
         <Link to={'/'} className={style[parent]} >
-            <img className={style.header__link__img} src={logo} alt="Логотип" width={38} height={38} />
+            <img className={style.header__link__img}
+                src={logo}
+                alt="Логотип"
+                width={38}
+                height={38} />
         </Link>
     </>)
 }

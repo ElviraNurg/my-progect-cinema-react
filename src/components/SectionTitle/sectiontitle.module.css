@@ -1,18 +1,18 @@
-.title__wrapper {
+/* .title__wrapper {
     min-height: 22px;
     padding-top: 70px;
     position: relative;
     margin-bottom: 89px;
-}
+} */
 
-.title__wrapper::after {
+/* .title__wrapper::after {
     content: '';
     width: 100%;
     height: 1px;
     position: absolute;
     background-color: var(--text-color-black);
     top: 120px;
-}
+} */
 
 .title {
     font-size: 18px;
@@ -21,6 +21,8 @@
     letter-spacing: -0.04em;
     text-align: left;
     margin: 0;
+    border-bottom: solid 1px var(--text-color-black);
+    padding-bottom: 28px;
 }
 
 @media (min-width: 768px) {

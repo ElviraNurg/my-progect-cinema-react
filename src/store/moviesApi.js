@@ -24,14 +24,37 @@ export const moviesSlice = createSlice({
         isLoading: false,
     },
     reducers: {
-        
+        addMovies(state, action){
+            state.movies=action.payload
+        }
     },
     extraReducers: {
         [getMovies.pending]: (state, action) => {
             state.isLoading=true
         },
         [getMovies.fulfilled]: (state, action) => {
-            state.movies = action.payload;
+            /* state.movies={
+                country
+                director,
+                duration,
+                year,
+                description,
+                image,
+                trailerLink,
+                nameRU,
+                nameEN,
+                thumbnail,
+                movieId: id,
+              } */
+            state.movies = action.payload.map(movie=>{
+                return{
+                    ...movie,
+                    image: `https://api.nomoreparties.co/${movie.image.url}`,
+                    
+                }
+            }); 
+
+            //console.log(state.movies);
             localStorage.setItem('movies', JSON.stringify(action.payload));
             state.isLoading = false;
         },
@@ -43,5 +66,5 @@ export const moviesSlice = createSlice({
 }
 )
 // console.log('moviesSlice.actions' ,moviesSlice.actions);
-export const { getData } = moviesSlice.actions
+export const { getData, addMovies } = moviesSlice.actions
 export default moviesSlice.reducer

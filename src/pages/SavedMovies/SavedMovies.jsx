@@ -7,7 +7,7 @@ import Button from '../../components/Button/Button'
 import Text from "../../components/Text/Text"
 import { useEffect, useState } from "react"
 import { useSelector, useDispatch } from 'react-redux';
-import { handleChange, handleFilter, getDisplayedSaveList, getSavedMovies } from "../../store/dataSlice";
+import { getDisplayedSaveList, getSavedMovies, addSavedMovies } from "../../store/dataSlice";
 
 import Preloader from "../../components/Preloader/preloader"
 
@@ -20,46 +20,53 @@ const SavedMovies = (props) => {
     const savedMovies = useSelector(state => state.datas.datas.savedMovies);
     const movies = useSelector(state => state.datas.movies.movies);
     const isLoading = useSelector(state => state.datas.movies.isLoading);
-    let searchValueInSave = useSelector(state => state.datas.datas.searchValueInSave)
     const [message, setMessage] = useState('');
-    const [clickedShortsInSave, setClickedShortsInSave] = useState( false)// для определения фильтра
+    const [clickedShortsInSave, setClickedShortsInSave] = useState(false)// для определения фильтра
     const [clickedFind, setClickedFind] = useState(false)// для определения фильтра
     const [savedLocal, setSavedLocal] = useState([])
+    const [searchValueInSave, setSearchValueInSave] = useState('')
+
     //Первая загрузка сохраненных фильмов пользователя
-    useEffect(()=>{dispatch(getSavedMovies())},[]);
+    useEffect(() => {
+        !localStorage.getItem('savedMovies') && dispatch(getSavedMovies());
+    }, []);
+
+    useEffect(() => {
+        setSavedLocal(JSON.parse(localStorage.getItem('savedMovies')))
+    }, []);
+ 
+    //Обнуление поисковой строки после перезагрузки стр.
+    useEffect(() => {
+        setSearchValueInSave('')
+    }, [])
 
     
-
     useEffect(() => {
-        localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
-    }, [savedMovies]);
- //загрузка данных 
-    useEffect(() => {
-        setSavedLocal(localStorage.getItem('savedMovies'))
-    }, [savedMovies]);
+       // console.log('savedLocal ', savedLocal);
+        if(savedMovies.length === 0 && savedLocal){
+            dispatch(addSavedMovies(savedLocal))
+        }
+    }, [savedLocal]);
    
+
+    //Изменяет статус кнопки поиска, переключателя короткометражек
     const handleFilterMovies = () => {
         setClickedFind(prev => !prev);
     }
-
     const handleFilterShortMovies = () => {
         setClickedShortsInSave(!clickedShortsInSave);
     }
-    
-    //Фильтрует фильмы в зависимости от изменений movies 
-    useEffect(() => {
-        dispatch(handleFilter({ movies,clickedShortsInSave, parent }));
-        
-    }, [clickedFind, clickedShortsInSave, parent]);
 
-    //Изменяет DisplayedSaveList(отображаемые фильмы) если поменялся массив savedMovies
+    //Изменяет DisplayedSaveList(отображаемые фильмы) если поменялся массив savedMovies,
+    // фильтрует при изменении clickedShortsInSave, searchValueInSave
     useEffect(() => {
-        dispatch(getDisplayedSaveList({ clickedShortsInSave }))
-    }, [savedLocal, filtredMovies]);
+        dispatch(getDisplayedSaveList({ clickedShortsInSave, searchValueInSave }))
+    }, [savedMovies, filtredMovies, clickedShortsInSave, clickedFind]);
+
 
     useEffect(() => {
-        (searchValueInSave.length > 0 || clickedShortsInSave) && filtredMovies.length === 0 ? setMessage('Ничего не найдено') : setMessage('')
-    }, [filtredMovies.length]);
+        (searchValueInSave.length > 0 || clickedShortsInSave) && displayedSaveList.length === 0 ? setMessage('Ничего не найдено') : setMessage('')
+    }, [displayedSaveList.length]);
 
     return (
         <>
@@ -68,14 +75,14 @@ const SavedMovies = (props) => {
                     <Header parent={'user'} />
                     <div className={style.movies__search}>
                         <div className={style.search__wrapper}>
-                           
-                            <Input onChange={(e) => dispatch(handleChange({ e, parent }))}
+
+                            <Input onChange={(e) => setSearchValueInSave(e.target.value)}
                                 parent={'movies__input'}
                                 type={'search'}
-                                placeholder={'Фильм'} 
-                               />
-                                
-                            <Button onClick={() => handleFilterMovies(movies)}
+                                placeholder={'Фильм'}
+                            />
+
+                            <Button onClick={() => handleFilterMovies()}
                                 parent={'movies__button'}
                                 text={'Найти'} />
                         </div>
@@ -95,7 +102,8 @@ const SavedMovies = (props) => {
                     </div>
                     <div className={style.movies}>
 
-                        <CinemaList displayedList={displayedSaveList} parent={parent} />
+                        <CinemaList displayedList={displayedSaveList}
+                            parent={parent} />
                         <span className={style.movies__message}>{message}</span>
 
                     </div>

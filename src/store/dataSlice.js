@@ -10,60 +10,38 @@ const URL={
 const AUTHORIZEDHEADERS={
     authorization: `Bearer ${localStorage.getItem('token')}`    
 }
-/* 
-function User(name) {
-    this.name = name;
-    this.isAdmin = false;
-  }
-  
-  let user = new User("Jack");
 
-function CreateAsyncThunk(funcName, url, headers){
-    return createAsyncThunk(
-        `${funcName}`,
-        async function(_,{rejectWithValue, getState, dispatch}) {
-            try{
-                const response = await fetch(`${BASE_URL}+${url}`, {
-                    headers: {
-                        headers
-                    }
-                })
-                if (!response.ok) {
-                    throw new Error('Error')
-                }
-                console.log(response.json());
-                return  await response.json();
-            }catch(error){
-                return rejectWithValue(error.message)
-            }
+ /* async function checkRes() {
+
+    const response =await fetch(`${BASE_URL}/users/me`, {
+        headers: {
+            authorization: `Bearer ${localStorage.getItem('token')}`
         }
-    )
-}
-export const kkk= new CreateAsyncThunk(kkk,URL.checkToken,AUTHORIZEDHEADERS);
- */
-
- async function checkRes(response){
-    console.log(response);
-     if (!response.ok) {
+    })
+      if (!response.ok) {
         throw new Error('Error')
     }
-    return response.json()
+    console.log(response);
+    return response.json()  
 } 
+ */
 
  export const checkToken = createAsyncThunk(
     'checkToken',
     async function (_, { rejectWithValue, dispatch}) {
         try {
+            //await checkRes()
             const response = await fetch(`${BASE_URL}/users/me`, {
                 headers: {
                     authorization: `Bearer ${localStorage.getItem('token')}`
                 }
             })
-            if (!response.ok) {
+             if (!response.ok) {
                 throw new Error('Error')
             }
-            return response.json()
-            //dispatch(checkRes(response))
+
+            return response.json()  
+           
         } catch (error) {
             return rejectWithValue(error.message)
         }
@@ -87,7 +65,6 @@ export const authorization = createAsyncThunk(
             if (!response.ok) {
                 throw new Error('Error')
             }
-            dispatch(checkToken())
             return await response.json();
         } catch (error) {
             return rejectWithValue(error.message)
@@ -242,97 +219,77 @@ export const deleteMovie = createAsyncThunk(
                 return rejectWithValue(error.message)
             }
         })
+        const initialState =  {
+            error: null,
+            isLoading: false,
+            authorizedUser: false,
+            clickedToggle: false,//Используется в header
+            clicker: 'enter',//Для определения какую форму рендерить вход или регистрация
+            searchValue: JSON.parse(localStorage.getItem('search')) || '',
+            filtredMovies: [],
+            savedMovies: [],//сохраненные фильмы
+            displayedList: [],//список отображаемых фильмов
+            liked: null, //лайкнут фильм или нет
+            displayedSaveList: [],//список отображаемых фильмов сохраненных
+            disabledMoreButton: false,//кнопка еще активная или нет
+            valueReg: {
+                name: '',
+                email: '',
+                password: '',
+            },//данные при регистрации
+            valueUser: {},
+            inputErr: {
+                nameErr: '',
+                emailErr: '',
+                passwordErr: ''
+            },//ошибки в введенных данных
+            isValid: false,
+            clickedEdit: false,//Для определения нажата ли кнопка редактировать в UserAccount
+            saveButtonStatus: false,//состояние кнопки сохранить при изменении данных пользователя
+        }
 
 const dataSlice = createSlice({
     name: 'datas',
-    initialState: {
-        datas: [],
-        error: null,
-        isLoading: false,
-        authorizedUser: false,
-        userToken: '',
-        clickedToggle: false,//Используется в header
-        clicker: 'enter',
-
-        searchValue: JSON.parse(localStorage.getItem('search')) || '',
-        searchValueInSave: '',
-        filtredMovies: JSON.parse(localStorage.getItem('filtredMovies')) || [],
-        savedMovies: JSON.parse(localStorage.getItem('savedMovies')) || [],//сохраненные фильмы
-        displayedList: [],//список отображаемых фильмов
-        liked: null, //лайкнут фильм или нет
-        displayedSaveList: [],//список отображаемых фильмов сохраненных
-        disabledMoreButton: false,//кнопка еще активная или нет
-
-        valueReg: {
-            name: '',
-            email: '',
-            password: '',
-        },//данные при регистрации
-        valueUser: {},
-        inputErr: {
-            nameErr: '',
-            emailErr: '',
-            passwordErr: ''
-        },//ошибки в введенных данных
-        isValid: false,
-
-        //clickedFilter: false,
-        clickedEdit: false,
-        saveButtonStatus: false,//состояние кнопки сохранить при изменении данных пользователя
-        verification: {},//промежуточная переменная для проверки значений
-    },
+    initialState: initialState,
     reducers: {
-        onClickToggle(state, action) {
+        onClickToggle(state) {
             state.clickedToggle = !state.clickedToggle
         },
-        onClickFalse(state, action) {
+        onClickFalse(state) {
             state.clickedToggle = false
         },
-
-        onClickEnter(state, action) {
+        onClickEnter(state) {
             state.clicker = 'enter';
         },
         clickEdit(state) {
             state.clickedEdit = !state.clickedEdit
         },
-        onClickRegistration(state, action) {
+        onClickRegistration(state) {
             state.clicker = 'registration';
         },
         handleChange(state, action) {
-            console.log('parent', action.payload.parent);
-            action.payload.parent === 'movies' ?
-                state.searchValue = action.payload.e.target.value
-                : state.searchValueInSave = action.payload.e.target.value
-
-            console.log('state.searchValue ', state.searchValue, 'state.searchValueInSave ', state.searchValueInSave);
+            state.searchValue = action.payload.e.target.value  
         },
         //Фильтр по названию фильма
         handleFilter(state, action) {
+            const clickedShorts = action.payload.clickedShorts;
+            const value =state.searchValue;
+            const movies= action.payload.movies;
 
-            let clickedShorts = action.payload.clickedShorts ? action.payload.clickedShorts : action.payload.clickedShortsInSave;
-
-            let movies = JSON.parse(localStorage.getItem('movies')) ? JSON.parse(localStorage.getItem('movies')) : action.payload.movies;
-            let value = action.payload.parent === 'movies' ? state.searchValue : state.searchValueInSave;
-            const moviesType = action.payload.parent === 'movies' ? movies : state.savedMovies;
-
-            // console.log('moviesType =>', moviesType);
-            // console.log('searchValue=>', value);
             if (value === '') {
-                state.filtredMovies = moviesType
+                state.filtredMovies = movies
             }
             if (value.length !== 0 && value !== '') {
-                state.filtredMovies = moviesType.filter((item) => item.nameRU.toLowerCase().includes(state.searchValue.toLowerCase()) || item.nameEN.toLowerCase().includes(state.searchValue.toLowerCase()))
+                state.filtredMovies = movies.filter((item) => item.nameRU.toLowerCase().includes(state.searchValue.toLowerCase()) || item.nameEN.toLowerCase().includes(state.searchValue.toLowerCase()))
             }
             if (value.length !== 0 && clickedShorts) {
-                state.filtredMovies = moviesType.filter((item) => (item.nameRU.toLowerCase().includes(state.searchValue.toLowerCase()) && item.duration < 40) || (item.nameEN.toLowerCase().includes(state.searchValue.toLowerCase()) && item.duration < 40))
+                state.filtredMovies = movies.filter((item) => (item.nameRU.toLowerCase().includes(state.searchValue.toLowerCase()) && item.duration < 40) || (item.nameEN.toLowerCase().includes(state.searchValue.toLowerCase()) && item.duration < 40))
             }
             if (value.length === 0 && clickedShorts) {
-                state.filtredMovies = moviesType.filter((item) => item.duration < 40);
+                state.filtredMovies = movies.filter((item) => item.duration < 40);
             }
-            localStorage.setItem('filtredMovies', JSON.stringify(state.filtredMovies));
         },
         getMoreButtunStatus(state) {
-
             if (state.filtredMovies.length - state.displayedList.length <= 0) {
                 state.disabledMoreButton = true
             } else {
@@ -352,46 +309,62 @@ const dataSlice = createSlice({
                     }
                 }
             }
-            //console.log(state.filtredMovies.length, state.displayedList.length);
             !state.disabledMoreButton ? state.displayedList = [...state.filtredMovies].splice(0, state.displayedList.length + count) : console.log('!');
 
         },
         getDisplayedList(state, action) {
-            const filtredMovies = JSON.parse(localStorage.getItem('filtredMoviesLocal'))
-            filtredMovies ? state.displayedList = ([...filtredMovies].splice(0, action.payload.displayedListCount))
-                : state.displayedList = ([...state.filtredMovies].splice(0, action.payload.displayedListCount))
+
+            state.displayedList = ([...state.filtredMovies].splice(0, action.payload.displayedListCount))
+
         },
-        handleClickExit(state, action) {
-            localStorage.clear();
-            //{...state}={...initialState};   ????
-            state.authorizedUser = false;
-            state.savedMovies = [];
-            state.movies = [];
-            state.filtredMovies=[];
-            console.log('state.filtredMovies ', state.filtredMovies);
-            state.clicker='enter';
+        clearState(state){
+            state.authorizedUser=false;
+            state.searchValue='';
+            state.displayedList=[];
+            state.savedMovies=[];
+            state.valueReg=[];
+            state.valueUser=[]
+        },
+        addSavedMovies(state,action){
+            state.savedMovies=action.payload;
         },
         getDisplayedSaveList(state, action) {
-            !action.payload.clickedShortsInSave ?
-                state.displayedSaveList = [...state.savedMovies.filter(item => item.nameRU.toLowerCase().includes(state.searchValueInSave.toLowerCase()) || item.nameEN.toLowerCase().includes(state.searchValueInSave.toLowerCase()))]
-                : state.displayedSaveList = [...state.savedMovies.filter(item => (item.nameRU.toLowerCase().includes(state.searchValueInSave.toLowerCase()) && item.duration < 40) || (item.nameEN.toLowerCase().includes(state.searchValueInSave.toLowerCase()) && item.duration < 40))]
+            const searchText=action.payload.searchValueInSave;
+            const clickedShortsInSave=action.payload.clickedShortsInSave;
+            //console.log('state.savedMovies ',state.savedMovies);
+            if (searchText === '') {
+                state.displayedSaveList = state.savedMovies
+            }
+            if (searchText.length !== 0 && searchText !== '') {
+                state.displayedSaveList = [...state.savedMovies.filter(item => item.nameRU.toLowerCase().includes(searchText.toLowerCase()) || item.nameEN.toLowerCase().includes(searchText.toLowerCase()))]
+            }
+            if (searchText.length !== 0 && clickedShortsInSave) {
+                state.displayedSaveList = [...state.savedMovies.filter(item => (item.nameRU.toLowerCase().includes(searchText.toLowerCase()) && item.duration < 40) || (item.nameEN.toLowerCase().includes(searchText.toLowerCase()) && item.duration < 40))]
+            }
+            if (searchText.length === 0 && clickedShortsInSave) {
+                state.displayedSaveList = state.savedMovies.filter((item) => item.duration < 40);
+            }
+//console.log('displayedSaveList ', state.displayedSaveList);
         },
 
         validateReg(state, action) {
-
-            if (!(/^([а-яё\s]+|[a-z\s]+)$/iu).test(state.valueReg.name) || state.valueReg.name.length < 3 || state.valueReg.name.length > 30) {
+            if (state.valueReg.name){
+            if ((!(/^([а-яё\s]+|[a-z\s]+)$/iu).test(state.valueReg.name) || state.valueReg.name.length < 3 || state.valueReg.name.length > 30)) {
                 state.inputErr.nameErr = "Please enter your name.";
             } else {
 
                 state.inputErr.nameErr = '';
             }
-            if (!(/^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/).test(state.valueReg.email)) {
+        }
+        if (state.valueReg.email){
+            if (!(/^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/).test(state.valueReg.email)||state.valueReg.email.length===0) {
 
                 state.inputErr.emailErr = "Please enter valid email address.";
             } else {
 
                 state.inputErr.emailErr = '';
             }
+        }
         },
         handleChangeReg(state, action) {
             state.valueReg = action.payload.e.target.name === 'nameUser' ? { ...state.valueReg, ['name']: action.payload.e.target.value } : { ...state.valueReg, [action.payload.e.target.name]: action.payload.e.target.value };
@@ -407,8 +380,7 @@ const dataSlice = createSlice({
         },
         [authorization.fulfilled]: (state, action) => {
             state.isLoading = false;
-            localStorage.setItem('token', action.payload.token);
-            
+            localStorage.setItem('token', action.payload.token); 
         },
         [authorization.rejected]: (state, action) => {
             state.error = action.payload;
@@ -420,21 +392,18 @@ const dataSlice = createSlice({
         [registration.fulfilled]: (state, action) => {
             state.isLoading = false;
             state.userToken = action.payload;
-            checkToken()
             state.authorizedUser = true;
         },
         [registration.rejected]: (state, action) => {
             state.error = action.payload;
         },
         [checkToken.fulfilled]: (state, action) => {
-
             state.valueReg = { ...action.payload };
             state.valueUser = { ...action.payload };
-            state.authorizedUser = true;
-          
+            state.authorizedUser = true;  
         },
         [checkToken.rejected]: (state, action) => {
-            console.log(action.payload);
+            state.error = action.payload;
             state.authorizedUser = false;
 
         },
@@ -444,23 +413,27 @@ const dataSlice = createSlice({
             state.clickedEdit = !state.clickedEdit
         },
         [saveMovie.fulfilled]: (state, action) => {
-            console.log(action.payload);
-            state.savedMovies.push(action.payload)
+            state.savedMovies.push(action.payload);
+            localStorage.setItem('savedMovies', JSON.stringify(state.savedMovies));
         },
         [saveMovie.rejected]: (state, action) => {
             state.error = action.payload;
         },
         [deleteMovie.fulfilled]: (state, action) => {
-            console.log('action.payload ', action.payload);
-
-            state.savedMovies = [...state.savedMovies.filter(item => item.movieId !== action.payload.movieId)]
+            state.savedMovies = [...state.savedMovies.filter(item => item.movieId !== action.payload.movieId)];
+            localStorage.setItem('savedMovies', JSON.stringify(state.savedMovies));
+        },
+        [getSavedMovies.pending]: (state) => {
+            state.isLoading = true;
         },
         [getSavedMovies.fulfilled]: (state, action) => {
-            console.log('action.payload.data ', action.payload.data);
-
-            state.savedMovies = action.payload.data
+            state.savedMovies = action.payload.data;
+            localStorage.setItem('savedMovies', JSON.stringify(state.savedMovies));
+        },
+        [getSavedMovies.rejected]: (state, action) => {
+            state.error = action.payload;
         },
     }
 })
-export const { onClickToggle, onClickFalse, onClickEnter, onClickRegistration, clickEdit, handleChange, handleFilter, handleFilterShorts, handlePushMore, getDisplayedList, likedToggle, getDisplayedSaveList, getMoreButtunStatus, handleChangeReg, validateReg, clickSave, handleChangeValue, handleClickExit } = dataSlice.actions;
+export const { onClickToggle, onClickFalse, onClickEnter, onClickRegistration, clickEdit, handleChange, handleFilter, handleFilterShorts, handlePushMore, getDisplayedList, likedToggle, getDisplayedSaveList, getMoreButtunStatus, handleChangeReg, validateReg, clickSave, handleChangeValue, handleClickExit, addSavedMovies, clearState } = dataSlice.actions;
 export default dataSlice.reducer
