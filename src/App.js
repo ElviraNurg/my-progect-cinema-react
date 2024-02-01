@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { checkToken } from './store/dataSlice';
 import SavedMovies from './pages/SavedMovies/SavedMovies';
 import { useNavigate } from 'react-router-dom';
-
+//Redux-saga
 function App() {
   const token = localStorage.getItem('token')
   const authorizedUser = useSelector(state => state.datas.datas.authorizedUser)
