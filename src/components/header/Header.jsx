@@ -10,14 +10,14 @@ const Header = (props ) => {
     //console.log(parent, bc);
     return (
         <>
-            <div className={`${bc}` }>
+            <header className={`${bc}` }>
                  <Logo parent={'header__link__logo'} /> 
                 {
                     datas.authorizedUser ?
                         <Nav parent={parent} />
                         : <EnterRegistration/>
                 }
-            </div >
+            </header >
         </>
     )
 }

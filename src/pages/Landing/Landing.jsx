@@ -5,12 +5,14 @@ import Technologies from '../../components/Technologies/Technologies.jsx';
 import Title from '../../components/Title/Title.jsx';
 
 const Landing = () => {
-    return (<>
+    return (
+    <main>
         <Title />
-        <About/>
-        <Technologies/>
-        <Student/>
-    </>
+        <About />
+        <Technologies />
+        <Student />
+    </main>
+
     )
 }
 export default Landing;

@@ -1,7 +1,7 @@
 import style from './footer.module.css'
 const Student = () => {
     return (<>
-        <div className={style.footer__wrapper}>
+        <footer className={style.footer__wrapper}>
             <h3 className={style.footer__progect__name}>Учебный проект Яндекс.Практикум х BeatFilm.
             </h3>
             <div>
@@ -10,7 +10,7 @@ const Student = () => {
                 <span className={style.footer__year}></span>
             </div>
 
-        </div>
+        </footer>
     </>)
 }
 export default Student;
